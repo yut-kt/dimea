@@ -21,6 +21,9 @@ $ go get github.com/yut-kt/dimea
 ## Usage
 See [dimea_example_test.go](https://github.com/yut-kt/dimea/blob/main/dimea_example_test.go) for detailed Usage
 
+## Contribution
+[CONTRIBUTING.md](docs/CONTRIBUTING.md)
+
 ## License
 dimea is released under the [MIT License](https://raw.githubusercontent.com/yut-kt/dimea/main/LICENSE).
 
