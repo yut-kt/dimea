@@ -6,7 +6,7 @@ import "math"
 Levenshtein
 **********/
 
-type levenshtein struct {
+type Levenshtein struct {
 	cost struct {
 		insert  int
 		delete  int
@@ -14,37 +14,29 @@ type levenshtein struct {
 	}
 }
 
-func NewLevenshtein() *levenshtein {
-	return &levenshtein{cost: struct {
-		insert  int
-		delete  int
-		replace int
-	}{insert: 1, delete: 1, replace: 1}}
-}
-
-func (l *levenshtein) SetCosts(insert, delete, replace int) *levenshtein {
+func (l *Levenshtein) SetCosts(insert, delete, replace int) *Levenshtein {
 	l.cost.insert = insert
 	l.cost.delete = delete
 	l.cost.replace = replace
 	return l
 }
 
-func (l *levenshtein) SetInsertCost(insert int) *levenshtein {
+func (l *Levenshtein) SetInsertCost(insert int) *Levenshtein {
 	l.cost.insert = insert
 	return l
 }
 
-func (l *levenshtein) SetDeleteCost(delete int) *levenshtein {
+func (l *Levenshtein) SetDeleteCost(delete int) *Levenshtein {
 	l.cost.delete = delete
 	return l
 }
 
-func (l *levenshtein) SetReplaceCost(replace int) *levenshtein {
+func (l *Levenshtein) SetReplaceCost(replace int) *Levenshtein {
 	l.cost.replace = replace
 	return l
 }
 
-func (l *levenshtein) Distance(x, y string) int {
+func (l *Levenshtein) Distance(x, y string) int {
 	xRune, yRune := []rune(x), []rune(y)
 
 	// initialize table
@@ -89,7 +81,7 @@ func (l *levenshtein) Distance(x, y string) int {
 	return table[len(xRune)][len(yRune)]
 }
 
-func (l *levenshtein) StdDistance(x, y string) float64 {
+func (l *Levenshtein) StdDistance(x, y string) float64 {
 	d := l.Distance(x, y)
 	return float64(d) / math.Max(float64(len([]rune(x))), float64(len([]rune(y))))
 }
