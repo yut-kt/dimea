@@ -1,9 +1,10 @@
 package dimea_test
 
 import (
-	"github.com/yut-kt/dimea"
 	"math/rand"
 	"testing"
+
+	"github.com/yut-kt/dimea"
 )
 
 func makeSlice() []float64 {

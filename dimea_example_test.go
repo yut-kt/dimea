@@ -80,3 +80,22 @@ func ExampleJaccardIndex() {
 	// Output:
 	// 1
 }
+
+func ExampleLevenshtein_Distance() {
+	fmt.Println(new(dimea.Levenshtein).SetCosts(7, 7, 10).Distance("agent", "agency"))
+	// Output:
+	// 17
+}
+
+func ExampleLevenshtein_StdDistance() {
+	fmt.Printf(
+		"%f",
+		new(dimea.Levenshtein).
+			SetInsertCost(7).
+			SetDeleteCost(7).
+			SetReplaceCost(10).
+			StdDistance("agent", "agency"),
+	)
+	// Output:
+	// 2.833333
+}
