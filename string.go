@@ -22,40 +22,49 @@ func Hamming(x, y string) (int, error) {
 	return sum, nil
 }
 
-/**********
+/******************************
 Levenshtein
-**********/
+******************************/
 
+// Levenshtein distance is a string metric for measuring the difference between two sequences.
+// Informally, the Levenshtein distance between two words is the minimum number of single-character edits
+// (insertions, deletions or substitutions) required to change one word into the other.
+// https://en.wikipedia.org/wiki/Levenshtein_distance
 type Levenshtein struct {
 	cost struct {
-		insert  int
-		delete  int
-		replace int
+		insertions  int
+		deletion  int
+		substitution int
 	}
 }
 
-func (l *Levenshtein) SetCosts(insert, delete, replace int) *Levenshtein {
-	l.cost.insert = insert
-	l.cost.delete = delete
-	l.cost.replace = replace
+// SetCosts is set edit (insertions, deletions or substitutions) costs.
+func (l *Levenshtein) SetCosts(insertions, deletion, substitution int) *Levenshtein {
+	l.cost.insertions = insertions
+	l.cost.deletion = deletion
+	l.cost.substitution = substitution
 	return l
 }
 
-func (l *Levenshtein) SetInsertCost(insert int) *Levenshtein {
-	l.cost.insert = insert
+// SetInsertionsCost is set edit (insertions) cost.
+func (l *Levenshtein) SetInsertionsCost(insertions int) *Levenshtein {
+	l.cost.insertions = insertions
 	return l
 }
 
-func (l *Levenshtein) SetDeleteCost(delete int) *Levenshtein {
-	l.cost.delete = delete
+// SetDeletionCost is set edit (deletions) cost.
+func (l *Levenshtein) SetDeletionCost(deletion int) *Levenshtein {
+	l.cost.deletion = deletion
 	return l
 }
 
-func (l *Levenshtein) SetReplaceCost(replace int) *Levenshtein {
-	l.cost.replace = replace
+// SetSubstitutionCost is set edit (substitutions) cost.
+func (l *Levenshtein) SetSubstitutionCost(substitution int) *Levenshtein {
+	l.cost.substitution = substitution
 	return l
 }
 
+// Distance is calc levenshtein distance.
 func (l *Levenshtein) Distance(x, y string) int {
 	xRune, yRune := []rune(x), []rune(y)
 
@@ -66,11 +75,11 @@ func (l *Levenshtein) Distance(x, y string) int {
 	}
 	// initialize row
 	for i := 0; i < len(xRune)+1; i++ {
-		table[i][0] = i * l.cost.delete
+		table[i][0] = i * l.cost.deletion
 	}
 	// initialize column
 	for i := 0; i < len(yRune)+1; i++ {
-		table[0][i] = i * l.cost.insert
+		table[0][i] = i * l.cost.insertions
 	}
 
 	min := func(nums ...int) int {
@@ -89,10 +98,10 @@ func (l *Levenshtein) Distance(x, y string) int {
 			if xRune[i-1] == yRune[j-1] {
 				costs = append(costs, table[i-1][j-1])
 			} else {
-				costs = append(costs, table[i-1][j-1]+l.cost.replace)
+				costs = append(costs, table[i-1][j-1]+l.cost.substitution)
 			}
-			costs = append(costs, table[i-1][j]+l.cost.insert)
-			costs = append(costs, table[i][j-1]+l.cost.delete)
+			costs = append(costs, table[i-1][j]+l.cost.insertions)
+			costs = append(costs, table[i][j-1]+l.cost.deletion)
 
 			table[i][j] = min(costs...)
 		}
@@ -101,6 +110,7 @@ func (l *Levenshtein) Distance(x, y string) int {
 	return table[len(xRune)][len(yRune)]
 }
 
+// StdDistance is calc standardized levenshtein distance.
 func (l *Levenshtein) StdDistance(x, y string) float64 {
 	d := l.Distance(x, y)
 	return float64(d) / math.Max(float64(len([]rune(x))), float64(len([]rune(y))))
