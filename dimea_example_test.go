@@ -36,7 +36,7 @@ func ExampleCosineSimilarity() {
 }
 
 func ExampleHamming() {
-	x, y := makeSliceXY()
+	x, y := "karolin", "kathrin"
 	v, _ := dimea.Hamming(x, y)
 	fmt.Println(v)
 	// Output:

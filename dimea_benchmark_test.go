@@ -40,7 +40,7 @@ func BenchmarkCosineSimilarity(b *testing.B) {
 }
 
 func BenchmarkHamming(b *testing.B) {
-	x, y := makeSlice(), makeSlice()
+	x, y := "karolin", "kathrin"
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		_, _ = dimea.Hamming(x, y)
