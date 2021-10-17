@@ -1,6 +1,26 @@
 package dimea
 
-import "math"
+import (
+	"fmt"
+	"math"
+)
+
+// Hamming distance between two strings of equal length is the number of positions at which the corresponding symbols are different.
+// https://en.wikipedia.org/wiki/Hamming_distance
+func Hamming(x, y string) (int, error) {
+	xRune, yRune := []rune(x), []rune(y)
+	if len(xRune) != len(yRune) {
+		return 0, fmt.Errorf("lengtn is different between x[%d] and y[%d]", len(xRune), len(yRune))
+	}
+
+	var sum int
+	for i := range xRune {
+		if xRune[i] != yRune[i] {
+			sum++
+		}
+	}
+	return sum, nil
+}
 
 /**********
 Levenshtein

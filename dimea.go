@@ -75,32 +75,6 @@ func CosineSimilarity(x, y []float64) (float64, error) {
 	return xy / (math.Sqrt(xSum) * math.Sqrt(ySum)), nil
 }
 
-// Hamming distance is https://en.wikipedia.org/wiki/Hamming_distance
-func Hamming(x, y interface{}) (int, error) {
-	if err := checkDimension(x, y); err != nil {
-		return 0, err
-	}
-
-	xValue, yValue := reflect.ValueOf(x), reflect.ValueOf(y)
-	var sum int
-	switch xValue.Kind() {
-	case reflect.Slice:
-		for i := 0; i < xValue.Len(); i++ {
-			if xValue.Index(i).Interface() != yValue.Index(i).Interface() {
-				sum++
-			}
-		}
-	case reflect.String:
-		xRune, yRune := []rune(xValue.String()), []rune(yValue.String())
-		for i := range xRune {
-			if xRune[i] != yRune[i] {
-				sum++
-			}
-		}
-	}
-	return sum, nil
-}
-
 // Manhattan is https://en.wikipedia.org/wiki/Taxicab_geometry
 func Manhattan(x, y []float64) (float64, error) {
 	if err := checkDimension(x, y); err != nil {
