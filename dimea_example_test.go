@@ -40,7 +40,7 @@ func ExampleHamming() {
 	v, _ := dimea.Hamming(x, y)
 	fmt.Println(v)
 	// Output:
-	// 4
+	// 3
 }
 
 func ExampleManhattan() {
