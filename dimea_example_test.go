@@ -91,9 +91,9 @@ func ExampleLevenshtein_StdDistance() {
 	fmt.Printf(
 		"%f",
 		new(dimea.Levenshtein).
-			SetInsertCost(7).
-			SetDeleteCost(7).
-			SetReplaceCost(10).
+			SetInsertionsCost(7).
+			SetDeletionCost(7).
+			SetSubstitutionCost(10).
 			StdDistance("agent", "agency"),
 	)
 	// Output:

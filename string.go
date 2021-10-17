@@ -32,8 +32,8 @@ Levenshtein
 // https://en.wikipedia.org/wiki/Levenshtein_distance
 type Levenshtein struct {
 	cost struct {
-		insertions  int
-		deletion  int
+		insertions   int
+		deletion     int
 		substitution int
 	}
 }
